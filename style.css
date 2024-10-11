@@ -1,0 +1,93 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f8f6;
+    color: #333;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9); /* Warna putih dengan transparansi */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%; /* Membuat bentuk lingkaran */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Bayangan untuk efek menonjol */
+    font-size: 20px; /* Ukuran font simbol lebih besar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* Pastikan tombol berada di atas elemen lain */
+    transition: transform 0.2s ease-in-out, background-color 0.2s; /* Tambahkan transisi halus */
+}
+
+.carousel-button.left {
+    left: 10px; /* Posisi tombol kiri */
+}
+
+.carousel-button.right {
+    right: 10px; /* Posisi tombol kanan */
+}
+
+.carousel-button:hover {
+    transform: translateY(-50%) scale(1.1); /* Tombol membesar saat di-hover */
+    background-color: rgba(255, 255, 255, 1); /* Warna lebih solid saat di-hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Bayangan lebih tebal saat di-hover */
+}
+
+.carousel-button:focus {
+    outline: none; /* Hilangkan outline default saat tombol fokus */
+}
+
+
+/* Recipes Grid */
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Recipe Cards */
+.recipe-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-10px);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.recipe-details {
+    padding: 20px;
+    text-align: center;
+}
+
+.recipe-details h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.recipe-details p {
+    font-size: 1em;
+    color: #666;
+}

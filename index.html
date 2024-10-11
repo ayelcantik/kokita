@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resep Makanan Sehat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        h1 {
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #45a049;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+        .search-input {
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+        }
+        .carousel {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            margin: 40px 0;
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .card {
+            min-width: 200px;
+            margin: 0 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 15px;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            max-width: 100%;
+            max-height: 150px;
+        }
+    
+        .carousel {
+            background-color: #eff6f0;
+            color: rgb(13, 14, 13);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .carousel:hover {
+            background-color: #f9fcf9;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>KoKita</h1>
+    <div class="search-container">
+        <input type="text" class="search-input" id="searchInput" placeholder="Cari Resep..." oninput="filterCards()" style="width: 20cm;">
+    </div>
+    <nav>
+        <a href="#" onclick="openProfile()">Profil</a>
+        <a href="#resep">Koleksi Resep</a>
+    </nav>
+</header>
+
+<div class="carousel">
+    <button class="carousel-button left" onclick="moveCarousel(-1)">&#10094;</button>
+    <div class="carousel-inner" id="carouselInner">
+        <div class="card" id="res1">
+            <img src="C:\Users\ASUS\OneDrive\Dokumen\mie ayam.jpg" alt="Resep 1">
+            <h3>Mie Ayam Pedas</h3>
+            <button class="recipe-button" onclick="openRecipe('mie')">Lihat Resep</button>
+        </div>
+        <div class="card" id="res2">
+            <img src="C:\Users\ASUS\OneDrive\Dokumen\spageti.jpg" alt="Resep 2">
+            <h3>Spaghetti Carbonara</h3>
+            <button class="recipe-button" onclick="openRecipe('spaghetti')">Lihat Resep</button>
+        </div>
+        <div class="card" id="res5">
+            <img src="C:\Users\ASUS\OneDrive\Dokumen\seblak.jpg" alt="Resep 5">
+            <h3>Seblak Kerupuk</h3>
+            <button class="recipe-button" onclick="openRecipe('seblak')">Lihat Resep</button>
+        </div>
+        <div class="card" id="res7">
+            <img src="C:\Users\ASUS\OneDrive\Dokumen\ayam kari.jpg" alt="Resep 7">
+            <h3>Ayam Kari</h3>
+            <button class="recipe-button" onclick="openRecipe('kari')">Lihat Resep</button>
+        </div>
+        <div class="card" id="res8">
+            <img src="C:\Users\ASUS\OneDrive\Dokumen\bakso telur mercon.jpg" alt="Resep 8">
+            <h3>Bakso Telur Mercon</h3>
+            <button class="recipe-button" onclick="openRecipe('bakso')">Lihat Resep</button>
+        </div>
+        <div class="card" id="res9">
+            <img src="C:\Users\ASUS\OneDrive\Dokumen\ayam kecap.jpg" alt="Resep 9">
+            <h3>Ayam Kecap</h3>
+            <button class="recipe-button" onclick="openRecipe('ayamKecap')">Lihat Resep</button>
+        </div>
+    </div>
+    <button class="carousel-button right" onclick="moveCarousel(1)">&#10095;</button>
+</div>
+
+<!-- Modal untuk Profil -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeProfile()">&times;</span>
+
+        <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pengguna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Profil Pengguna</h2>
+    <form id="userProfileForm">
+        <div class="form-group">
+            <label for="name">Nama Pengguna:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Nomor Telepon:</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        <button type="submit">Simpan Profil</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('userProfileForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        alert(`Profil disimpan:\nNama: ${name}\nEmail: ${email}\nNomor Telepon: ${phone}`);
+    });
+</script>
+
+</body>
+</html>
+    </div>
+</div>
+
+<script>
+    function openProfile() {
+        document.getElementById("profileModal").style.display = "block";
+    }
+
+    function closeProfile() {
+        document.getElementById("profileModal").style.display = "none";
+    }
+
+    function openRecipe(type) {
+        let recipeHTML = '';
+        
+        if (type === 'mie') {
+            recipeHTML = `
+                <h2>Resep Mie Ayam Pedas</h2>
+                <h3>Bahan:</h3>
+                <ul>
+                    <li>Mie, rebus</li>
+                    <li>1 butir bawang putih</li>
+                    <li>1/2 sdt kecap asin</li>
+                    <li>1 sdt kecap manis</li>
+                    <li>Minyak</li>
+                </ul>
+                <h3>Bahan Ayam:</h3>
+                <ul>
+                    <li>Daging ayam fillet</li>
+                    <li>Jamur kancing</li>
+                    <li>1 butir bawang putih</li>
+                    <li>2 butir bawang merah</li>
+                    <li>1 butir kemiri</li>
+                    <li>1 sdm kecap manis</li>
+                    <li>Sejumput garam</li>
+                </ul>
+                <h3>Cara Membuat:</h3>
+                <ol>
+                    <li>Rebus mie sampai matang. Tiriskan.</li>
+                    <li>Tumis bawang putih dengan minyak. Angkat. Sisihkan.</li>
+                    <li>Haluskan bawang putih, bawang merah dan kemiri. Tumis sampai harum.</li>
+                    <li>Masukkan daging ayam dan jamur. Tambah sedikit air.</li>
+                    <li>Masak ayam dengan api kecil. Tambahkan dengan kecap manis dan garam. Biarkan sampai air menyusut.</li>
+                    <li>Dalam wadah, tuang minyak bawang, kecap manis dan kecap asin. Masukkan mie. Aduk rata.</li>
+                    <li>Tambahkan ayam, bawang goreng dan daun bawang.</li>
+                    <li>Sajikan.</li>
+                </ol>
+            `;
+        } else if (type === 'spaghetti') {
+            recipeHTML = `
+                <h2>Resep Spaghetti Carbonara</h2>
+                <h3>Bahan-bahan:</h3>
+                <ul>
+                    <li>1 bungkus pasta spaghetti/fettucini</li>
+                    <li>200 ml susu cair</li>
+                    <li>1/2 sdt maizena/trigu</li>
+                    <li>1/2 batang keju cheddar/quick melt parut</li>
+                    <li>3 lembar smoked beef/sosis</li>
+                    <li>1 sdm butter/mentega</li>
+                    <li>2 siung bawang putih, haluskan</li>
+                    <li>1/2 buah bawang bombay, potong2</li>
+                    <li>1/2 sdt lada hitam/lada biasa</li>
+                    <li>1/2 sdt garam</li>
+                    <li>Secukupnya oregano</li>
+                    <li>1 sdm minyak goreng</li>
+                    <li>1 butir telur</li>
+                </ul>
+                <h3>Cara Membuat:</h3>
+                <ol>
+                    <li>Didihkan air dalam panci, beri sedikit garam dan 1 sdm minyak goreng, rebus spaghetti hingga empuk, kurang lebih 15 menit.</li>
+                    <li>Panaskan butter, tumis bawang putih dan bawang bombay hingga harum, masukkan smoked beef, aduk rata. Tuang susu cair dan keju, aduk rata. Lalu beri garam, lada, oregano, aduk rata, test rasanya.</li>
+                    <li>Jika sudah pas, masukkan spaghetti, aduk rata, lalu tuang larutan maizena, aduk rata. Kocok telur dan campurkan.</li>
+                </ol>
+            `;
+        } else if (type === 'seblak') {
+            recipeHTML = `
+                <h2>Resep Seblak Kerupuk</h2>
+                <h3>Bahan:</h3>
+                <ul>
+                    <li>100 gram kerupuk aci</li>
+                    <li>7 lembar daun caisim/sawi hijau</li>
+                    <li>5 butir bakso sapi</li>
+                    <li>1 butir telur</li>
+                    <li>Secukupnya air</li>
+                    <li>Secukupnya garam dan gula</li>
+                </ul>
+                <h3>Bumbu yang dihaluskan:</h3>
+                <ul>
+                    <li>2 ruas kencur</li>
+                    <li>2 butir bawang merah</li>
+                    <li>1 butir bawang putih</li>
+                    <li>5 buah cabe rawit merah (sesuai selera pedas)</li>
+                    <li>3 buah cabe keriting merah</li>
+                </ul>
+                <h3>Cara Membuat:</h3>
+                <ol>
+                    <li>Rendam kerupuk dengan air biasa selama 30 menit agar lembek saat dimasak.</li>
+                    <li>Haluskan bumbu, tumis hingga harum. Tambahkan air kira-kira 1 gelas dan tunggu hingga mendidih.</li>
+                    <li>Masukkan telur yang sudah dikocok lepas.</li>
+                    <li>Tambahkan kerupuk, bakso, caisim, garam, dan gula. Masak hingga matang dan sajikan selagi hangat.</li>
+                </ol>
+            `;
+        } else if (type === 'ayamKecap') {
+            recipeHTML = `
+                <h2>Resep Ayam Kecap Manis</h2>
+                <h3>Bahan-bahan:</h3>
+                <ul>
+                    <li>½ ekor ayam, dipotong menjadi 6 bagian</li>
+                    <li>½ sdt garam</li>
+                    <li>2 sdm air jeruk nipis</li>
+                    <li>4 siung bawang putih, dimemarkan</li>
+                    <li>½ ruas jari jahe, dimemarkan</li>
+                    <li>½ butir bawang bombai, dipotong</li>
+                </ul>
+                <h3>Cara Membuat:</h3>
+                <ol>
+                    <li>Campurkan ayam dengan garam dan air jeruk nipis, diamkan selama 15 menit.</li>
+                    <li>Tumis bawang putih dan jahe hingga harum, kemudian masukkan ayam. Masak hingga ayam berubah warna.</li>
+                    <li>Tambahkan bawang bombai, aduk rata. Masak hingga bawang bombai layu.</li>
+                    <li>Tuangkan kecap manis secukupnya, aduk rata, dan masak hingga bumbu meresap.</li>
+                    <li>Sajikan hangat.</li>
+                </ol>
+            `;
+        } else if (type === 'bakso') {
+            recipeHTML = `
+                <h2>Resep Bakso Telur Mercon</h2>
+                <h3>Bahan:</h3>
+                <ul>
+                    <li>12 buah bakso sapi, rebus dan potong-potong</li>
+                    <li>2-3 butir telur, digoreng orek</li>
+                    <li>3 lembar daun jeruk</li>
+                    <li>Cabai rawit diiris (sesuai selera)</li>
+                    <li>Garam, gula, kaldu jamur</li>
+                    <li>Air secukupnya</li>
+                </ul>
+                <h3>Bumbu halus:</h3>
+                <ul>
+                    <li>6 buah bawang putih</li>
+                    <li>4 buah bawang merah</li>
+                    <li>10-12 buah cabai merah keriting</li>
+                </ul>
+                <h3>Cara Membuat:</h3>
+                <ol>
+                    <li>Tumis bumbu halus sampai harum, tambahkan cabai rawit dan daun jeruk. Aduk-aduk.</li>
+                    <li>Masukkan bakso, tumis kembali. Tuang air secukupnya.</li>
+                    <li>Beri garam, secubit gula dan kaldu jamur. Aduk rata. Masak hingga sambal matang, koreksi rasa.</li>
+                    <li>Terakhir, tambahkan telur goreng orek, aduk-aduk sampai tercampur rata dengan sambal.</li>
+                </ol>
+            `;
+        }
+
+        const recipeWindow = window.open("", "_blank");
+        recipeWindow.document.write(`
+            <html>
+                <head>
+                    <title>Resep ${type === 'mie' ? 'Mie Ayam Pedas' : type === 'spaghetti' ? 'Spaghetti Carbonara' : type === 'seblak' ? 'Seblak Kerupuk' : type === 'ayamKecap' ? 'Ayam Kecap Manis' : 'Bakso Telur Mercon'}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        h2 { color: #4CAF50; }
+                        ul, ol { margin-left: 20px; }
+                    </style>
+                </head>
+                <body>${recipeHTML}</body>
+            </html>
+        `);
+        recipeWindow.document.close();
+    }
+
+    let currentIndex = 0;
+
+    function moveCarousel(direction) {
+        const carouselInner = document.getElementById('carouselInner');
+        const cards = document.querySelectorAll('.card');
+        const totalCards = cards.length;
+
+        currentIndex += direction;
+
+        if (currentIndex < 0) {
+            currentIndex = totalCards - 1;
+        } else if (currentIndex >= totalCards) {
+            currentIndex = 0;
+        }
+
+        const offset = -currentIndex * 220; // 220 = card width + margin
+        carouselInner.style.transform = `translateX(${offset}px)`;
+    }
+
+    function filterCards() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            card.style.display = title.includes(input) ? 'block' : 'none';
+        });
+    }
+</script>
+
+</body>
+</html>
